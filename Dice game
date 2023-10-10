@@ -1,0 +1,309 @@
+import os, time, random, csv
+def dice():
+  input("Press the Enter key to roll: ")
+  roll1 = random.randint(1,6)
+  return(roll1)
+def dice2():
+  roll2 = random.randint(1,6)
+  return(roll2)
+num = 1
+num2 = 2
+num3 = 3
+num4 = 4
+num5 = 5
+while num3 < 4:
+ userchoice = input("Player 1 login or create an account: ")
+ if userchoice == "login":
+   num3 = 4
+ elif userchoice == "Login":
+   num3 = 4
+   userchoice = "login"
+ elif userchoice == "create":
+   num3 = 4
+ elif userchoice == "Create":
+   num3 = 4
+   userchoice = "create"
+ else:
+   print("Invalid input, please try again.")
+authfile = open("authentication.csv","r+")
+readall = authfile.readlines()
+readline = authfile.readline()
+logged_in = True
+num = 1
+num2 = 2
+if userchoice == "create":
+  while num < 2:
+    create1 = str(input("Player 1, Create a username: "))
+    createpass1 = str(input("Player 1, Create a password: "))
+    if len(create1) < 5:
+       print("Username too short")
+    else:
+      print()
+      num=2
+  num = 1
+  while num < 2:
+    for line in readall:
+     record= line.split(",") 
+     if create1==record[0].split("\n")[0]:
+       logged_in = False
+     if logged_in == False:
+      print("Username already exists")
+      time.sleep(0.5)
+      os.system("clear")
+      num = 1
+     elif logged_in == True:
+      num = 2
+  if num == 2:
+    print("Login created!")
+    time.sleep(0.5)
+    os.system("clear")
+    num = 2
+  authfile.write("\n")
+  authfile.write(create1)
+  authfile.write(",")
+  authfile.write(createpass1)
+  authfile.close()
+  login1 = create1
+logged_in=False
+num = 1
+num2 = 2
+if userchoice == "login":
+  while num < 2:
+    login1 = input("Player 1, Enter your username: ")
+    pass1 = input("Player 1, Enter your password: ")
+    for line in readall:
+      record = line.split(",") 
+      if record[0].split("\n")[0]==login1:
+        if record[1].split("\n")[0]==pass1:
+          logged_in = True
+          num = 2
+        if num <2:
+         pass
+      elif num <2:
+        pass
+    if logged_in == False:
+     print("Incorrect username or password, please try again.")
+    else:
+      print(f"Welcome {login1}!")
+      time.sleep(1.3)
+os.system("clear")
+logged_in = False
+while num4 < 5:
+ userchoice = input("Player two: login or create an account: ")
+ if userchoice == "login":
+  num4 = 5
+ elif userchoice == "Login":
+  num4 = 5
+  userchoice = "login"
+ elif userchoice == "create":
+  num4 = 5
+ elif userchoice == "Create":
+  num4 = 5
+  userchoice = "create"
+ else:
+    print("Invalid input, please try again.")
+num = 1
+num2 = 2
+logged_in = True
+authfile = open("authentication.csv","r+")
+readall = authfile.readlines()
+readline = authfile.readline()
+num = 1
+num2 = 2
+if userchoice == "create":
+  while num < 2:
+    create2 = str(input("Player 2, Create a username: "))
+    createpass2 = str(input("Player 2, Create a password: "))
+    for line in readall:
+     record = line.split(",")
+     if create2==record[0].split("\n")[0]:
+       logged_in = False
+     if logged_in == False:
+      print("Username already exists")
+      time.sleep(0.5)
+      os.system("clear")
+      num2 = 1
+    if num2 == 2:
+      logged_in = True    
+    if logged_in == True:
+     print("Login created!")
+     time.sleep(0.5)
+     os.system("clear")
+     num = 2
+  authfile.write("\n")
+  authfile.write(create2)
+  authfile.write(",")
+  authfile.write(createpass2)
+  authfile.close()
+if userchoice == "create":
+  login2 = create2
+authfile = open("authentication.csv","r+")
+logged_in=False
+num = 1
+num2 = 2
+num3 = 3
+if userchoice == "login":
+  while num < 2:
+    login2 = input("Player 2, Enter your username: ")
+    pass2 = input("Player 2, Enter your password: ")
+    for line in readall:
+      record = line.split(",") 
+      if record[0].split("\n")[0] == login2:
+        num2 = 1
+        if login2 != login1:  
+          num3 = 2
+          if record[1].split("\n")[0] == pass2:
+            logged_in = True
+    if pass2 == pass1:
+      logged_in = False
+    if logged_in == True:
+      print(f"Welcome {login2}.")
+      num = 2
+    if num2 == 2:
+      print("Invalid username or password.")
+    if login2 == login1:
+      print("This user is already logged in.")
+    if logged_in == False:
+     print("Please try again.")
+authfile.close()
+time.sleep(1.3)
+os.system("clear")
+rules = input("Would you like to read the rules? Y or N: ")
+if rules == "Y":
+  rulefile = open("rules.txt","r")
+  for line in rulefile:
+    print(line)
+    time.sleep(0.75)
+  input("Press Enter to proceed into the game: ")
+  os.system("clear")
+  rulefile.close()
+num = 1
+total1 = 0
+total2 = 0
+victory1 = False
+victory2 = False
+while num <6:
+  print(f"Round {num}")
+  print()
+  print("Player 1's turn")
+  print("---------------")
+  roll1 = dice()
+  roll2 = dice2()
+  points1 = roll1+roll2
+  total1 = points1 + total1
+  print(f"Player one, you rolled a {roll1} and a {roll2}.")
+  print()
+  if roll1 == roll2:
+    print("You rolled a double, so you get 1 extra die roll")
+    time.sleep(1)
+    input("Press Enter to roll: ")
+    double = random.randint(1,6)
+    print()
+    print(f"You rolled a {double}")
+    total1 = total1 + double
+  print()
+  if (total1 % 2) == 0:
+    total1 = total1 + 10
+    print("As your total is even, you get an additional 10 points added to your score.")
+    print()
+    print(f"Your total score is now {total1}.")
+  else:
+    total1 = total1 - 5
+    print("As your total is odd, 5 points have been subtracted from your total score.")
+    if total1 <0:
+      total1 = 0
+      print()
+      print("However your points are now less than 0, so your score has been set to 0.")
+    print()
+    print(f"Your total score is now {total1}.")
+  time.sleep(3)
+  print()
+  print("Player 2's turn")
+  print("---------------")
+  roll1 = dice()
+  roll2 = dice2()
+  points2 = roll1+roll2
+  total2 = points2 + total2
+  print(f"Player two, you rolled a {roll1} and a {roll2}.")
+  print()
+  if roll1 == roll2:
+    print("You rolled a double, so you get 1 extra die roll")
+    time.sleep(1)
+    input("Press Enter to roll: ")
+    double = random.randint(1,6)
+    print()
+    print(f"You rolled a {double}")
+    total2 = total2 + double
+  print()
+  if (total2 % 2) == 0:
+    total2 = total2 + 10
+    print("As your total is even, you get an additional 10 points added to your score.")
+    print()
+    print(f"Your total score is {total2}.")
+  else:
+    total2 = total2 - 5
+    print("As your total is odd, 5 points have been subtracted from your total score.")
+    if total2 <0:
+      total2 = 0
+      print()
+      print("However your points are now less than 0, so your score has been set to 0.")
+    print()
+    print(f"Your total score is {total2}.")
+  time.sleep(3)
+  os.system("clear")
+  num += 1
+if num == 6:
+  print(f"Player 1's total after 5 rounds is {total1}")
+  print()
+  print(f"Player 2's total after 5 rounds is {total2}")
+  if total1 > total2:
+    victory1 = True
+  if total2 > total1:
+    victory2 = True
+print()
+num = 1
+while num < 2:
+  if total1 == total2:
+    extra1 = random.randint(1,6)
+    extra2 = random.randint(1,6)
+    print("As you both have the same score, You both get 1 extra die")
+    print()
+    input("Player 1, press Enter to roll:")
+    print(f"You rolled a {extra1}")
+    print()
+    input("Player 2, press Enter to roll: ")
+    print(f"You rolled a {extra2}")
+    print()
+    create1 = login1
+    create2 = login2
+    if extra1 > extra2:
+      victory1 = True
+      total1 = total1 + extra1
+      total2 = total2 + extra2
+      print(f"Player 1 wins with {total1} points")
+      print(f"Player 2 loses with {total2} points")
+      winner = login1
+      winnerscore = total1
+      num = 2
+    elif extra2 > extra1:
+      victory2 = True
+      total1 = total1 + extra1
+      total2 = total2 + extra2
+      print(f"Player 1 loses with {total1} points")
+      print(f"Player 2 wins with {total2} points")
+      num = 2
+      winner = login2
+      winnerscore = total2
+  else:
+    num = 2
+leaderboard = open("leaderboard.csv","a+")
+with open('leaderboard.csv', 'a') as leaderboard:
+    writer = csv.writer(leaderboard)
+    writer.writerow([winner,winnerscore])
+leaderboard.close()
+
+with open('leaderboard.csv') as leaderboard:
+    read = csv.reader(leaderboard)
+    scores = sorted(read, key=lambda row: (float(row[1]), row[0]))
+    top5 = scores[-5:]
+leaderboard.close()
