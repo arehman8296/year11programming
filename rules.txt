@@ -1,0 +1,10 @@
+Welcome to the dice game, the rules are as follows:
+
+Both players will play 5 rounds, where they will both roll two dice per round.
+The points rolled on the dice, are added to the players score
+If at the end of a round, a players total score is even, they will be awarded 10 additional points.
+However if their score is odd, then 5 points are subtracted from their score. 
+At no point can a player's score go below 0
+If a player rolls a double, they are awarded one extra die roll.
+At the end of 5 rounds, the person with the highest score wins. 
+However if both players have the same score at the end of 5 rounds, they both get 1 extra die roll. This is repeated until one of the players have a higher score.
